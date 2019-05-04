@@ -1,0 +1,13 @@
+﻿生成启动时间为 2019/1/22 星期二 22:33:43。
+     1>项目“D:\code\1-21string\1-21string\1-21string.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
+         test.cpp
+     1>d:\code\1-21string\1-21string\test.cpp(101): warning C4018: “<”: 有符号/无符号不匹配
+     1>d:\code\1-21string\1-21string\test.cpp(197): warning C4553: “==”: 运算符不起任何作用；是否是有意使用“=”的?
+     1>d:\code\1-21string\1-21string\test.cpp(201): error C2143: 语法错误 : 缺少“;”(在“}”的前面)
+     1>已完成生成项目“D:\code\1-21string\1-21string\1-21string.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:01.37
