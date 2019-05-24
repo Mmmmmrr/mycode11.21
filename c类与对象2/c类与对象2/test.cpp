@@ -92,21 +92,201 @@ using namespace std;
 //}
 
 //用户没有定义，编译器生成的构造函数：默认的构造函数，而且一定是无参的。
-class Date
+//class Date
+//{
+//public:
+//	void PrintDate()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date d; //用户没有定义，编译器生成的构造函数：默认的构造函数，而且一定是无参的。
+//	return 0;
+//}
+
+
+//构造函数在对象的整个生命周期只调用一次
+//class Date
+//{
+//public: 
+//	Date()
+//	{
+//		cout << "Date(int, int, int)" << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//void Test()
+//{
+//	Date d;
+//}
+//int main()
+//{
+//	Test();
+//	system("pause");
+//	return 0;
+//}
+
+#include <cassert>
+#include <malloc.h>
+//class SeqList
+//{
+//public:
+//	SeqList(int capacity = 10)
+//	{
+//		cout << "SeqList(int, int)" <<endl;
+//		_array = (int*)malloc(sizeof(int)*capacity);
+//		assert(_array);
+//		_capacity = capacity;
+//		_size = 0;
+//	}
+//	//编译器默认的
+//	//~Seqlist()
+//	//{}
+//	~SeqList()
+//	{
+//		if (_array)
+//		{
+//			free(_array);
+//			_capacity = _size = 0;
+//		}
+//		cout << "~SeqLise()" << endl;
+//	}
+//private:
+//	int* _array;
+//	int _capacity;
+//	int _size;
+//};
+//void TestSeqList()
+//{
+//	SeqList s;
+//}
+//int main()
+//{
+//	TestSeqList();
+//	system("pause");
+//	return 0;
+//}
+
+class String
 {
 public:
-	void PrintDate()
+	String(const char* str = "")
 	{
-		cout << _year << "-" << _month << "-" << _day << endl;
+		cout << "String(char)" << endl;
+		if (str == nullptr)
+			str = "";
+		_str = (char*)malloc(strlen(str)+1);
+		strcpy(_str, str);
 	}
-
+	~String()
+	{
+		free(_str);
+		_str = nullptr;
+		cout << "~String()" << endl;
+	}
 private:
-	int _year;
-	int _month;
-	int _day;
+	char* _str;
 };
-int main()
-{
-	Date d; //用户没有定义，编译器生成的构造函数：默认的构造函数，而且一定是无参的。
-	return 0;
-}
+//void TestString()
+//{
+//	String s1("hello");
+//	String s2(s1);
+//}
+//int main()
+//{
+//	TestString();
+//	system("pause");
+//	return 0;
+//}
+
+//class Person
+//{
+//	//生成默认的构造函数----将对象中_name和_gender两个String类型的对象构造好
+//	//生成默认的析构函数----将对象中_name和_gender两个String类型的对象析构
+//private:
+//	String _name;
+//	String _gender;
+//	int age;
+//};
+//void TestPerson()
+//{
+//	Person p;
+//}
+//int main()
+//{
+//	TestPerson();
+//	//String s(nullptr);
+//	system("pause");
+//	return 0;
+//}
+
+
+//class Date
+//{
+//public:
+//	Date(int year = 1990, int month = 2, int day = 5)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//		cout << "Date(int,int,int)" <<this<< endl;
+//	}
+//
+//	Date(const Date& d)
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//		cout << "Date(Date& d)" <<this<< endl;
+//	}
+//
+//	~Date()
+//	{
+//		cout << "~Date()" <<this << endl;
+//	}
+//
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//void TestDate()
+//{
+//	Date d1;
+//	Date d2(d1);
+//}
+//int main()
+//{
+//	TestDate();
+//	system("pause");
+//	return 0;
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
