@@ -162,29 +162,133 @@ using namespace std;
 //};
 
 //斐波那契数
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//int N = 1000000;
+//int f[1000000];
+//int main()
+//{
+//
+//	f[0] = 1;
+//	f[1] = 1;
+//	for (int i = 2; i < N; i++)
+//	{
+//		f[i] = f[i - 1] + f[i - 2];
+//	}
+//	int n;
+//	cin >> n;
+//	int i = 0;
+//	for (; i < N - 1; i++)
+//	{
+//		if (f[i] <= n && f[i + 1] >= n)
+//			break;
+//	}
+//	int ret = min(n - f[i], f[i + 1] - n);
+//	cout << ret;
+//
+//}
+
+//两种排序方式
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
-int N = 1000000;
-int f[1000000];
-int main()
-{
 
-	f[0] = 1;
-	f[1] = 1;
-	for (int i = 2; i < N; i++)
-	{
-		f[i] = f[i - 1] + f[i - 2];
+
+bool isLexicographically(vector<string>strings, int index){
+
+	if (index == strings.size() - 1) {
+		return true;
 	}
+	int com = strings[index].compare(strings[index + 1]);
+	if (com < 0) {
+		return isLexicographically(strings, index + 1);
+	}
+	else{
+		return false;
+	}
+	return false;
+}
+
+bool isLengths(vector<string>strings, int index){
+
+	if (index == strings.size() - 1) {
+		return true;
+	}
+	int com = int(strings[index].length() - strings[index + 1].length());
+	if (com < 0) {
+		return isLengths(strings, index + 1);
+	}
+	else{
+		return false;
+	}
+	return false;
+}
+
+int main(){
+
 	int n;
 	cin >> n;
-	int i = 0;
-	for (; i < N - 1; i++)
-	{
-		if (f[i] <= n && f[i + 1] >= n)
-			break;
-	}
-	int ret = min(n - f[i], f[i + 1] - n);
-	cout << ret;
 
+	vector<string> vector;
+	string s;
+
+	while (n--) {
+		cin >> s;
+		vector.push_back(s);
+	}
+
+	bool a = isLexicographically(vector, 0);
+	bool b = isLengths(vector, 0);
+
+	if (a && b) {
+		cout << "both" << endl;
+	}
+	else if (a){
+		cout << "lexicographically" << endl;
+	}
+	else if (b){
+		cout << "lengths" << endl;
+	}
+	else {
+		cout << "none" << endl;
+	}
+
+	return 0;
 }
+
+//最小公倍数
+#include <iostream>
+
+using namespace std;
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	for (int i = a;; i++)
+	{
+		if (i%a == 0 && i%b == 0)
+		{
+			cout << i;
+			break;
+		}
+	}
+	return 0;
+}
+
+//最大公约数求得
+#include<stdio.h>
+int gcd(int a, int b) //递归法求最大公约数~
+{
+	if (b == 0)
+		return a;
+	return gcd(b, a%b);
+}
+int main()
+{
+	int a, b;
+	scanf("%d%d", &a, &b);
+	printf("%d\n", a*b / gcd(a, b));
+}
+
