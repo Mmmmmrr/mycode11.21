@@ -212,3 +212,80 @@ int main()
 	}
 	return 0;
 }
+
+//反序相等
+//设N是一个四位数，它的9倍恰好是其反序数（例如：1234 的反序数是4321），求N的值。
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	for (int i = 1000; i < 10000; i++)
+	{
+		string str = to_string(i);
+		reverse(str.begin(), str.end());
+		int n = stoi(str);
+		if (i * 9 == n)
+		{
+			cout << i << endl;
+		}
+	}
+
+	return 0;
+}
+
+//加法等式
+//设a、b、c 均是0 到9 之间的数字，abc、bcc 是两个三位数，
+//且有：abc+bcc=532。求满足条件的所有a、b、c 的值。
+#include <iostream>
+using namespace std;
+int main()
+{
+	for (int a = 0; a <= 9; a++)
+	{
+		for (int b = 0; b <= 9; b++)
+		{
+			for (int c = 0; c <= 9; c++)
+			{
+				if ((a * 100) + (b * 10) + c + b * 100 + c * 10 + c == 532)
+					cout << a << " " << b << " " << c << endl;
+			}
+		}
+
+	}
+	return 0;
+}
+
+//单词识别
+//输入一个英文句子，把句子中的单词(不区分大小写)按出现次数按从多到少把单词和次数在屏幕上输出来，
+//要求能识别英文句号和逗号，即是说单词由空格、句号和逗号隔开。
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+int main()
+{
+	string s;
+	while (getline(cin, s))
+	{
+		map<string, int> mp;
+		string tmp;
+		for (int i = 0; i < s.size(); i++)
+		{
+			if (s[i] == ' ' || s[i] == ',' || s[i] == '.')
+			{
+				if (tmp != "")
+					mp[tmp]++;
+				tmp = "";
+			}
+			else
+				tmp += tolower(s[i]);
+		}
+		for (auto it = mp.begin(); it != mp.end(); it++)
+		{
+			cout << it->first << ":" << it->second << endl;
+		}
+	}
+	return 0;
+}
