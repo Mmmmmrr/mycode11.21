@@ -289,3 +289,112 @@ int main()
 	}
 	return 0;
 }
+
+
+//参数解析
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		vector<string> v;
+		string tmp;
+		bool flag = false;
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (str[i] == '"' && !flag)
+			{
+				flag = true;
+				continue;
+			}
+			else if (str[i] == '"' && flag)
+			{
+				flag = false;
+				v.push_back(tmp);
+				tmp.clear();
+				continue;
+			}
+			else if (str[i] == ' ' && flag)
+			{
+				tmp.push_back(str[i]);
+				continue;
+			}
+			else if (str[i] == ' '&& !flag)
+			{
+				v.push_back(tmp);
+				tmp.clear();
+				continue;
+			}
+
+			else
+			{
+				tmp.push_back(str[i]);
+			}
+		}
+		v.push_back(tmp);
+		cout << v.size() << endl;
+		for (int i = 0; i < v.size(); i++)
+		{
+			cout << v[i] << endl;
+		}
+	}
+	return 0;
+}
+
+//跳石板
+#include <iostream>
+#include <set>
+#include <cmath>
+#include <queue>
+#include <climits>
+using namespace std;
+
+// get common dividers.
+void get_d(int a, vector<int> &arr){
+	for (int i = 2; i<int(sqrt(double(a))) + 1; i++){
+		if (a % i == 0){
+			arr.push_back(i);
+			if (i != a / i){
+				arr.push_back(a / i);
+			}
+		}
+	}
+}
+
+// Computer the least jumps needed.
+int min_jump(int a, int b){
+	int steps = b - a + 1;
+	vector<int> dp(steps, INT_MAX);
+	dp[0] = 0;
+	for (int i = 0; i<steps; i++){
+		// Can not arrived.
+		if (dp[i] == INT_MAX){
+			continue;
+		}
+		vector<int> d_arr;
+		get_d(a + i, d_arr);
+		// Update the next can reachable pos.
+		for (auto n : d_arr){
+			if (n + i >= steps){
+				continue;
+			}
+			dp[i + n] = min(dp[i] + 1, dp[i + n]);
+		}
+	}
+	if (dp[steps - 1] == INT_MAX){
+		return -1;
+	}
+	return dp[steps - 1];
+}
+
+int main(){
+	int a, b;
+	while (cin >> a >> b){
+		cout << min_jump(a, b) << endl;
+	}
+	return 0;
+}
