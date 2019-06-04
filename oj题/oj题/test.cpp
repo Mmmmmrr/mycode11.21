@@ -398,3 +398,105 @@ int main(){
 	}
 	return 0;
 }
+
+//计算日期到天数的转换
+#include <iostream>
+using namespace std;
+int main()
+{
+	int a[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int year, month, day;
+	while (cin >> year >> month >> day)
+	{
+		if (year % 100 != 0 && year % 4 == 0 || year % 400 == 0)
+		{
+			a[2] = 29;
+		}
+		int res = day;
+		for (int i = 0; i < month; i++)
+		{
+			res += a[i];
+		}
+		a[2] = 28;
+		cout << res << endl;
+	}
+	return 0;
+}
+
+//幸运的袋子
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int n;
+int a[1005];
+int dfs(int step, int sum, int mul)
+{
+	int i, res = 0;
+	for (i = step + 1; i < n; i++)
+	{
+		int nSum = sum + a[i];
+		int nMul = mul * a[i];
+		if (nSum > nMul)
+		{
+			res += 1 + dfs(i, nSum, nMul);
+		}
+		else if (a[i] == 1)
+		{
+			res += dfs(i, nSum, nMul);
+		}
+		else
+			break;
+		while (i < n - 1 && a[i] == a[i + 1])
+			i++;
+	}
+	return res;
+}
+int main()
+{
+	cin >> n;
+	for (int i = 0; i<n; i++)
+		cin >> a[i];
+	sort(a, a + n);
+	int ret = dfs(0, 1, 1);
+	cout << ret << endl;
+
+	return 0;
+}
+
+//旋转数组的最小数字
+class Solution {
+public:
+	int minNumberInRotateArray(vector<int> rotateArray) {
+		size_t len = rotateArray.size();
+		if (len == 0)
+			return 0;
+		if (len == 1)
+			return rotateArray[0];
+		vector<int>::iterator low = rotateArray.begin();
+		vector<int>::iterator mid;
+		vector<int>::iterator high = rotateArray.end() - 1;
+		while (low <= high)
+		{
+			//防止迭代器失效
+			mid = low + (high - low) / 2;
+			if (*mid >*high)
+			{
+				low = mid + 1;
+			}
+			else if (*mid < *high)
+			{
+				high = mid;
+			}
+			else
+			{
+				high = high - 1;
+			}
+			if (low >= high)
+			{
+				break;
+			}
+		}
+		return *low;
+	}
+};
