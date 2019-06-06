@@ -90,3 +90,78 @@ int main()
 	}
 	return 0;
 }
+
+//查找输入整数二进制中1的个数
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int count = 0;
+		while (n > 0)
+		{
+			int num = n & 1;
+			if (num == 1)
+			{
+				count++;
+			}
+			n >>= 1;
+		}
+		cout << count << endl;
+	}
+
+	return 0;
+}
+
+//手套问题
+	class Gloves {
+	public:
+		int findMinimum(int n, vector<int> left, vector<int> right) {
+			// write code here
+			int sum = 0;
+			int leftSum = 0, rightSum = 0;
+			int leftMin = 26, rightMin = 26;
+			for (int i = 0; i<n; i++)
+			{
+				if (left[i] * right[i] == 0)
+					sum += (left[i] + right[i]);
+				else{
+					leftSum += left[i];
+					rightSum += right[i];
+					leftMin = min(leftMin, left[i]);
+					rightMin = min(rightMin, right[i]);
+				}
+			}
+			return sum + min(leftSum - leftMin + 1, rightSum - rightMin + 1) + 1;
+		}
+
+	};
+
+//iNOC产品部--完全数计算
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		if (n > 0 && n <= 500000){
+		int counts = 0;
+		for (int i = 1; i <= n; ++i)
+		{
+			int sum = 0;
+			for (int j = 1; j <= i / 2; ++j)
+			if (i % j == 0)
+				sum += j;
+			if (i == sum)
+				counts++;
+		}
+		cout << counts << endl;
+		}
+		else
+			cout << "-1" << endl;
+	}
+		return 0;
+}
