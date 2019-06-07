@@ -165,3 +165,90 @@ int main()
 	}
 		return 0;
 }
+
+
+//扑克牌大小
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+int main()
+{
+	string card = "345678910JQKA2";
+	vector<string> MAX;
+	MAX.push_back("joker JOKER");
+	MAX.push_back("JOKER joker");
+	string input;
+	while (getline(cin, input))
+	{
+		unsigned int pos = input.find('-');
+		int len = input.size();
+		string s1 = input.substr(0, pos);
+		string s2 = input.substr(pos + 1, len - pos - 1);
+		//cout<<s1<<" "<<s2<<endl;
+		//这里有个坑就是 "10"是两位数，所以只能找空白
+		int n1 = count(s1.begin(), s1.end(), ' ');
+		int n2 = count(s2.begin(), s2.end(), ' ');
+		// double joker
+		if (s1 == MAX[0] || s1 == MAX[1])
+		{
+			cout << s1 << endl; continue;
+		}
+		if (s2 == MAX[0] || s2 == MAX[1])
+		{
+			cout << s2 << endl; continue;
+		}
+		//"10"是两位数,只需要取第一位1就可以
+		if (n1 == n2)
+		{
+			int l = card.find(s1[0]);
+			int r = card.find(s2[0]);
+			string ans = l>r ? s1 : s2;
+			cout << ans << endl; continue;
+		}
+		//炸弹
+		if (n1 == 3 && n2 != 3)
+		{
+			cout << s1 << endl; continue;
+		}
+		if (n1 != 3 && n2 == 3)
+		{
+			cout << s2 << endl; continue;
+		}
+		cout << "ERROR" << endl;
+	}
+
+
+}
+
+
+//对称平方数
+#include<iostream>
+using namespace std;
+int main(){
+	int a[50], a_count = 0;
+	int b[10];
+	for (int n = 1; n<256; n++){
+		for (int i = 0; i<10; i++)
+			b[i] = 0;
+		int temp = n*n, count = 0;
+		while (temp>0){
+			b[count++] = temp % 10;
+			temp /= 10;
+		}
+		bool judge = 1;
+		for (int i = 0; i<count / 2; i++){
+			if (b[i] != b[count - 1 - i]){
+				judge = 0;
+				break;
+			}
+		}
+		if (judge == 1)
+			a[a_count++] = n;
+	}
+	for (int i = 0; i<a_count; i++)
+		cout << a[i] << endl;
+}
