@@ -252,3 +252,60 @@ int main(){
 	for (int i = 0; i<a_count; i++)
 		cout << a[i] << endl;
 }
+
+//杨辉三角
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		if (n <= 2)
+			cout << -1 << endl;
+		else
+		{
+			if (n % 2 == 1)
+				cout << 2 << endl;
+			else if (n % 4 == 2)
+				cout << 4 << endl;
+			else if (n % 4 == 0)
+				cout << 3 << endl;
+		}
+	}
+	return 0;
+}
+
+
+//超长正整数相加
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main()
+{
+	string num1;
+	string num2;
+	while (cin >> num1 >> num2)
+	{
+		int ret = 0;
+		while (num1.size() < num2.size())
+			num1 = "0" + num1;
+		while (num2.size() < num1.size())
+			num2 = "0" + num2;
+		int num = 0;
+		for (int i = num1.size() - 1; i >= 0; i--)
+		{
+			num = num1[i] - '0' + num2[i] - '0' + ret;
+			num1[i] = num % 10 + '0';
+			if (num / 10)
+				ret = 1;
+			else
+				ret = 0;
+		}
+		if (ret)
+			num1 = "1" + num1;
+		cout << num1 << endl;
+	}
+	return 0;
+}
