@@ -309,3 +309,77 @@ int main()
 	}
 	return 0;
 }
+
+
+//字符串通配符
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<vector>
+using namespace std;
+bool solve(string str1, string str2)
+{
+	if (str1.length()>str2.length())
+		return false;
+	int i, j;
+	for (i = 0, j = 0; i<str1.length(), j<str2.length();)
+	{
+		if (str1[i] == '?')
+		{
+			i++;
+			j++;
+		}
+		else if (str1[i] == '*')
+		{
+			//i++;j++;//只用这一句也能通过
+			if (i == str1.length() - 1)
+				return true;
+			else if (i<str1.length() - 1)
+			{
+				i++; j++;
+			}
+		}
+		else if (str1[i] != str2[j])
+			return false;
+		else
+		{
+			i++; j++;
+		}
+	}
+	return true;
+}
+int main()
+{
+	string str1, str2;
+	while (cin >> str1 >> str2)
+	{
+		if (solve(str1, str2))
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
+	}
+	return 0;
+}
+
+
+//每个月兔子的数量
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int a = 1;
+		int b = 0; 
+		int c = 0;
+		while (--n)
+		{
+			c += b;
+			b = a;
+			a = c;
+		}
+		cout << a + b + c << endl;
+	}
+	return 0;
+}
