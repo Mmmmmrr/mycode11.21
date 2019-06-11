@@ -444,3 +444,54 @@ int main()
 	}
 	return 0;
 }
+
+
+
+//反转字符串
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+	string s;
+	while (cin >> s)
+	{
+		reverse(s.begin(), s.end());
+		cout << s << endl;
+	}
+	return 0;
+}
+
+
+//公共字符串计算
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	string s1, s2;
+	cin >> s1 >> s2;
+	int len = s1.size();
+	int len2 = s2.size();
+	int maxlen = 0;
+	vector<vector<int>> dp(len + 1, vector<int>(len2 + 1, 0));
+	for (int i = 1; i < len; i++)
+	{
+		for (int j = 1; j < len2; j++)
+		{
+			if (s1[i - 1] == s2[j - 1])
+			{
+				dp[i][j] = dp[i - 1][j - 1] + 1;
+				maxlen = max(maxlen, dp[i][j]);
+			}
+		}
+	}
+	cout << maxlen << endl;
+	return 0;
+}
