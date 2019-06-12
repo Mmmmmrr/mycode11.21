@@ -495,3 +495,118 @@ int main()
 	cout << maxlen << endl;
 	return 0;
 }
+
+
+//Ï´ÅÆ
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	int T, n, k;
+	cin >> T;
+	while (T--)
+	{
+		cin >> n >> k;
+		int num = 2 * n;
+		vector<int> table(num);
+		for (int i = 0; i < num; i++)
+		{
+			cin >> table[i];
+		}
+		while (k--)
+		{
+			vector<int> v(table.begin(), table.end());
+			for (int i = 0; i < n; i++)
+			{
+				table[2 * i] = v[i];
+				table[2 * i + 1] = v[i + n];
+			}
+		}
+		for (int i = 0; i < num - 1; i++)
+			cout << table[i] << " ";
+		cout << table[num - 1] << endl;
+	}
+	return 0;
+}
+
+
+
+//MP3¹â±êÎ»ÖÃ
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		string str;
+		cin >> str;
+		int top = 1, buttom = 4;
+		int cur = 1;
+		if (n <= 4)
+		{
+			buttom = n;
+			for (int i = 0; i<str.size(); i++)
+			{
+				if (str[i] == 'U')
+				{
+					if (cur == 1) cur = n;
+					else cur--;
+				}
+				else
+				{
+					if (cur == n) cur = 1;
+					else cur++;
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i<str.size(); i++)
+			{
+				if (str[i] == 'U')
+				{
+					if (cur == 1)
+					{
+						cur = n;
+						top = n - 3;
+						buttom = n;
+					}
+					else if (cur == top)
+					{
+						top--;
+						cur--;
+						buttom--;
+					}
+					else cur--;
+				}
+				else
+				{
+					if (cur == n)
+					{
+						cur = 1;
+						top = 1;
+						buttom = 4;
+					}
+					else if (cur == buttom)
+					{
+						cur++;
+						top++;
+						buttom++;
+					}
+					else cur++;
+				}
+			}
+		}
+		for (int i = top; i<buttom; i++)
+		{
+			cout << i << " ";
+		}
+		cout << buttom << endl;
+		cout << cur << endl;
+	}
+	return 0;
+}
