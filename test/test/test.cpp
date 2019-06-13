@@ -610,3 +610,71 @@ int main()
 	}
 	return 0;
 }
+
+//小易的升级之路
+#include <iostream>
+#include <vector>
+using namespace std;
+int yueshu(int a, int b)
+{
+	int temp;
+	while (b){
+		temp = b;
+		b = a%b;
+		a = temp;
+	}
+	return a;
+}
+int main()
+{
+	int n, a;
+	while (cin >> n >> a)
+	{
+		int i, tmp;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> tmp;
+			if (a >= tmp)
+				a = a + tmp;
+			else
+			{
+				int c = yueshu(a, tmp);
+				a = a + c;
+			}
+		}
+		cout << a << endl;
+	}
+
+	return 0;
+}
+
+
+//查找字符串第一个出现的唯一字符
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		int a[128] = { 0 };
+		bool flag = false;
+		for (int i = 0; i < str.size(); i++)
+		{
+			++a[str[i]];
+		}
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (a[str[i]] == 1)
+			{
+				cout << str[i] << endl;
+				flag = true;
+				break;
+			}
+		}
+		if (flag == false)
+			cout << "-1" << endl;
+	}
+	return 0;
+}
