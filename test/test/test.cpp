@@ -678,3 +678,86 @@ int main()
 	}
 	return 0;
 }
+
+
+//计算字符串的距离
+#include <iostream>
+#include <string>
+using namespace std;
+
+int min3(int a,int b,int c)
+{
+    int min=a<b?a:b;
+    min=min<c?min:c;
+    return min;
+}
+
+int getdistance(string str1,string str2)
+{
+	int len1 = str1.length();
+    int len2=str2.length();
+    if(len1==0)
+        return len2;
+    if(len2==0)
+        return len1;
+    int arry[1024][1024];
+    for(int i=0;i<=len1;i++)
+    {
+        arry[i][0]=i;
+    }
+    for(int i=0;i<=len2;i++)
+    {
+        arry[0][i]=i;
+    }
+    for(int i=1;i<=len1;i++)
+    {
+        char ch1=str1[i-1];
+        for(int j=1;j<=len2;j++)
+        {
+            char ch2=str2[j-1];
+            int temp=ch1==ch2?0:1;
+            arry[i][j]=min3(arry[i-1][j]+1,arry[i][j-1]+1,arry[i-1][j-1]+temp);
+        }
+    }
+   
+    return arry[len1][len2];
+}
+
+int main()
+{
+    string str1,str2;
+    while(cin>>str1)
+    {
+        cin>>str2;
+        int distance=getdistance(str1,str2);
+        cout<<distance<<endl;
+    }
+    
+}
+
+
+//红包问题
+class Gift {
+public:
+	int getValue(vector<int> gifts, int n) {
+		// write code here
+		int count = 1;
+		int tmp = gifts[0];
+		for (int i = 1; i < gifts.size(); i++)
+		{
+			if (gifts[i] != tmp)
+			{
+				count--;
+				if (count == 0)
+				{
+					tmp = gifts[i];
+				}
+			}
+			else
+				count++;
+		}
+		if (count > 0)
+			return tmp;
+		return 0;
+	}
+};
