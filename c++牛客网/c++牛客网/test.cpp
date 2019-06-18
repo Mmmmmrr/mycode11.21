@@ -70,3 +70,52 @@ public:
 		return dp[5][5];
 	}
 };
+
+
+
+//对称平方数
+#include <iostream>
+using namespace std;
+int rev(int m){//反转整数
+	int n = 0;
+	while (m){
+		n = n * 10 + m % 10;
+		m /= 10;
+	}
+	return n;
+}
+int main()
+{
+	int i;
+	for (i = 1; i<256; i++)
+	{
+		int m = i*i;
+		if (m == rev(m))
+			cout << i << endl;
+	}
+	return 0;
+}
+
+
+//邮票
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main()
+{
+	set<int> s;
+	for (int i = 0; i < 6; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			for (int k = 0; k < 7; k++)
+			{
+				int N = 8 * i + j * 10 + k * 18;
+				s.insert(N);
+			}
+		}
+	}
+	cout << s.size() - 1 << endl;
+	return 0;
+}
