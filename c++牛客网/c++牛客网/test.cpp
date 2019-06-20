@@ -119,3 +119,63 @@ int main()
 	cout << s.size() - 1 << endl;
 	return 0;
 }
+
+
+//弹地小球
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		int h, m;
+		cin >> h >> m;
+		double ans = (double)h;
+		double hh = (double)h / 2;
+		for (int i = 1; i < m; i++)
+		{
+			ans += (hh * 2);
+			hh /= 2;
+		}
+		printf("%.2lf\n", ans);
+	}
+	return 0;
+}
+
+
+//三角形相加
+#include <iostream>
+using namespace std;
+class CTriangle{
+public:
+	int x, y;
+	CTriangle(int a, int b) {
+		y = a;
+		x = b;
+	}
+	CTriangle operator+(const CTriangle &b) {
+		CTriangle tmp(0, 0);
+		tmp.y = y + b.y;
+		tmp.x = x + b.x;
+		return tmp;
+	}
+	void print() {
+		printf("A(0,%d),B(0,0),C(%d,0)\n", y, x);
+	}
+};
+int main()
+{
+	int a, b;
+	CTriangle x(0, 0);
+	while (cin >> a >> b) {
+		if (a == 0)
+			break;
+		CTriangle tmp(a, b);
+		x = x + tmp;
+	}
+	x.print();
+
+	return 0;
+}
