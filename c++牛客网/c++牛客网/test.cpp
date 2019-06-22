@@ -243,3 +243,80 @@ int main()
 	}
 	return 0;
 }
+
+
+//点的距离
+#include <iostream>
+#include <cmath>
+using namespace std;
+class CPoint{
+
+public:
+	int x;
+	int y;
+
+	CPoint()
+	{
+
+	}
+	CPoint(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	void operator - (const CPoint A)
+	{
+		double ans = 0.0;
+		ans = sqrt(1.0*((A.x - x) * (A.x - x)) + 1.0 * ((A.y - y) *(A.y - y)));
+		printf("%.2lf\n", ans);
+	}
+};
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		int a, b, c, d;
+		cin >> a >> b >> c >> d;
+		CPoint p(a, b);
+		CPoint q(c, d);
+		p - q;
+	}
+	return 0;
+}
+
+
+//判断数字位置
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	int m;
+	cin >> m;
+	getchar();
+	while (m--)
+	{
+		string s;
+		getline(cin, s);
+		bool isVirgn = true;
+		for (int i = 0; i < s.length(); i++)
+		{
+			if (s[i] >= '0' && s[i] <= '9')
+			{
+				if (isVirgn)
+				{
+					cout << i + 1;
+					isVirgn = false;
+				}
+				else
+				{
+					cout << " " << i + 1;
+				}
+			}
+		}
+		cout << endl;
+	}
+	return 0;
+}
