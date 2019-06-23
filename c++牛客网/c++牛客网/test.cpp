@@ -320,3 +320,86 @@ int main()
 	}
 	return 0;
 }
+
+
+//复数
+#include <iostream>
+using namespace std;
+class complex{
+public:
+	int a, b;
+	complex()
+	{
+	}
+	complex(int x, int y)
+		:a(x)
+		, b(y)
+	{
+	}
+	complex operator + (const complex& e)
+	{
+		complex c;
+		c.a = a + e.a;
+		c.b = b + e.b;
+		return c;
+	}
+	void print()
+	{
+		cout << a;
+		if (b > 0)
+		{
+			cout << "+";
+		}
+		cout << b << "i" << endl;
+	}
+};
+int main()
+{
+	int m;
+	cin >> m;
+	while (m--)
+	{
+		int a, b, c, d;
+		cin >> a >> b >> c >> d;
+		complex x(a, b), y(c, d), z;
+		z = x + y;
+		z.print();
+	}
+	return 0;
+}
+
+
+//多项式的值
+#include <iostream>
+#include <algorithm>
+using namespace std;
+class Type{
+public:
+	int max, x;
+	void cal()
+	{
+		cin >> max;
+		int *a = new int[max + 1];
+		for (int i = 0; i < max + 1; i++)
+		{
+			cin >> a[i];
+		}
+		cin >> x;
+		int total = 0;
+		for (int i = 0; i < max + 1; i++)
+		{
+			total += pow(x, i)*a[i];
+		}
+		cout << total << endl;
+	}
+};
+int main()
+{
+	int m;
+	cin >> m;
+	for (int i = 0; i < m; i++)
+	{
+		Type x;
+		x.cal();
+	}
+}
