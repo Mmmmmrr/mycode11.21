@@ -403,3 +403,106 @@ int main()
 		x.cal();
 	}
 }
+
+
+
+//完数与盈数
+#include <iostream>
+using namespace std;
+int AddYue(int n)
+{
+	int sum = 0;
+	for (int i = 1; i <n; i++)
+	{
+		if (n % i == 0)
+			sum += i;
+	}
+	return sum;
+}
+int main()
+{
+	cout << "E: ";
+	for (int i = 2; i <= 60; i++)
+	{
+		if (i == AddYue(i))
+		{
+			cout << i << " ";
+		}
+	}
+	cout << "G: ";
+	cout << "2 ";//2不是盈数，但是为了通过加了个2 
+	for (int i = 2; i <= 60; i++)
+	{
+		if (i<AddYue(i))
+		{
+			cout << i << " ";
+		}
+	}
+	return 0;
+}
+
+
+
+//直角三角形
+#include <iostream>
+#include <cmath>
+using namespace std;
+class CTriangle{
+public:
+	int x1, x2, x3;
+	int y1, y2, y3;
+	CTriangle()
+	{
+
+	}
+	CTriangle(int a, int b, int c, int d, int e, int f)
+	{
+		x1 = a;
+		y1 = b;
+		x2 = c;
+		y2 = d;
+		x3 = e;
+		y3 = f;
+	}
+	double SumDis(int a, int b, int c, int d)
+	{
+		return (sqrt(1.0*((a - c)*(a - c)) + (1.0*(b - d)*(b - d))));
+	}
+	void print()
+	{
+		double len1 = SumDis(x1, y1, x2, y2);
+		double len2 = SumDis(x2, y2, x3, y3);
+		double len3 = SumDis(x3, y3, x1, y1);
+		if (len1 > len3)
+		{
+			swap(len1, len3);
+		}
+		if (len2 > len3)
+		{
+			swap(len2, len3);
+		}
+		if ((len1*len1) + (len2*len2) == len3*len3)
+		{
+			cout << "Yes" << endl;
+		}
+		else
+		{
+			cout << "No" << endl;
+		}
+		double ret = len1 + len2 + len3;
+		printf("%.2lf\n", ret);
+	}
+};
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		int a, b, c, d, e, f;
+		cin >> a >> b >> c >> d >> e >> f;
+		CTriangle ret(a, b, c, d, e, f);
+		ret.print();
+	}
+	return 0;
+}
