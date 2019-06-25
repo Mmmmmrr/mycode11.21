@@ -506,3 +506,74 @@ int main()
 	}
 	return 0;
 }
+
+
+//重载运算符
+#include <iostream>
+#include <cmath>
+using namespace std;
+#define PI 3.1415926
+class jum{
+public:
+	float n;
+	jum operator - (jum b)
+	{
+		jum a;
+		a.n = n - b.n;
+		return a;
+	}
+	void print()
+	{
+		printf("%.2f\n", sin(n*PI / 180));
+	}
+};
+int main()
+{
+	int m;
+	cin >> m;
+	for (int i = 0; i <m; i++)
+	{
+		jum a, b, tmp;
+		cin >> a.n >> b.n;
+		tmp = a - b;
+		tmp.print();
+	}
+
+	return 0;
+}
+
+
+//计算天数
+#include <iostream>
+using namespace std;
+bool IsLeap(int year)
+{
+	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+		return true;
+	return false;
+}
+int main()
+{
+	int m;
+	cin >> m;
+	while (m--)
+	{
+		int a[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+		int year, month, day;
+		cin >> year >> month >> day;
+		int count = 0;
+		if (IsLeap(year))
+		{
+			a[2] = 29;
+		}
+		else
+			a[2] = 28;
+		for (int i = 0; i < month; i++)
+		{
+			count += a[i];
+		}
+		count += day;
+		cout << count << endl;
+	}
+	return 0;
+}
