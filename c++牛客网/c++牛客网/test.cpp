@@ -577,3 +577,98 @@ int main()
 	}
 	return 0;
 }
+
+
+
+
+//连续子数最大和
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> v;
+		v.resize(n);
+		vector<int> s;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> v[i];
+		}
+		int sum = v[0];
+		int maxsum = sum;
+		for (int i = 0; i <n; i++)
+		{
+			if (sum > 0)
+			{
+				sum += v[i];
+				maxsum = max(maxsum, sum);
+			}
+			else
+			{
+				sum = v[i];
+				maxsum = max(maxsum, sum);
+			}
+		}
+		cout << maxsum << endl;
+	}
+	return 0;
+}
+
+
+//建物流中转站
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int transstation(int n)
+{
+	vector<vector<int>> v(n, vector<int>(n, 0));
+	// 每一行1的个数，每一列的结果
+	vector<int> row(n, 0), col(n, 0);
+	int res = 0, cnt = 0;
+	for (int i = 0; i < n; ++i)
+	for (int j = 0; j < n; ++j)
+	{
+		cin >> v[i][j];
+		if (v[i][j] == 1)
+		{
+			cnt++, row[i]++;
+			res = res + i + j;
+		}
+	}
+	if (cnt == n * n) return -1;
+	for (int i = 0; i < n; ++i)
+	{
+		int cur = 0;
+		for (int j = 0; j < n; ++j)
+		for (int k = 0; k < n; ++k)
+		{
+			if (v[j][k] == 1) cur = cur + j + (k - i > 0 ? k - i : i - k);
+		}
+		col[i] = cur;
+	}
+	int up = 0, down = cnt;
+	for (int j = 1; j < n; ++j)
+	{
+		up += row[j - 1];
+		down = cnt - up;
+		for (int k = 0; k < n; ++k)
+		{
+			col[k] = col[k] + up - down;
+			if (v[j][k] == 0 && col[k] < res) res = col[k];
+		}
+	}
+	return res;
+}
+
+int main()
+{
+	int n; cin >> n;
+	cout << transstation(n) << endl;
+	return 0;
+}
+
