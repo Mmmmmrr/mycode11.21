@@ -748,3 +748,97 @@ int main()
 	cout << (m == 25879 || 392419 ? ans - 1 : ans) << endl;
 	return 0;
 }
+
+
+
+//最佳配对
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> v(n);
+	vector<int> s(n);
+	vector<int> vv(n);
+	for (int i = 0; i < n; i++)
+	{
+		cin >> v[i];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cin >> s[i];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		vv[i] = 0;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (v[i] == s[j])
+				vv[i] = 1;
+		}
+	}
+	int sum = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (vv[i] == 1)
+			sum++;
+	}
+	if (sum == n)
+		cout << sum - 1;
+	else
+		cout << sum + 1;
+	return 0;
+}
+
+
+//回文数索引
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+bool IsHW(string str)
+{
+	string s = str;
+	reverse(str.begin(), str.end());
+	if (s == str)
+		return true;
+	return false;
+}
+int test(string str)
+{
+	if (IsHW(str))
+		return -1;
+	for (int i = 0; i < str.size(); i++)
+	{
+		string s = str;
+		str.erase(str.begin() + i);
+		if (IsHW(str))
+		{
+			return i;
+			break;
+		}
+		str = s;
+	}
+	return -1;
+}
+int main()
+{
+	int T;
+	while (cin >> T)
+	{
+		string str;
+		while (T--)
+		{
+			cin >> str;
+			int i = test(str);
+			cout << i << endl;
+		}
+	}
+
+	return 0;
+}
