@@ -842,3 +842,60 @@ int main()
 
 	return 0;
 }
+
+
+
+//ĞÇ¼ÊÃÜÂë
+// write your code here cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n;
+	int fib[10001];
+	int x;
+	for (int i = 2; i<10001; i++)
+	{
+		fib[0] = 1;
+		fib[1] = 1;
+		fib[i] = (fib[i - 1] % 10000 + fib[i - 2] % 10000) % 10000;
+	}
+	while (cin >> n)
+	{
+		while (n--)
+		{
+			cin >> x;
+			printf("%04d", fib[x]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+
+//Êı¸ù
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	string s;
+	while (cin >> s) {
+		int sum = 0;
+		for (int i = 0; i < s.size(); ++i) {
+			sum += s[i] - '0';
+		}
+		while (sum > 9) {
+			int c = 0;
+			while (sum > 0) {
+				c += sum % 10;
+				sum /= 10;
+			}
+			sum = c;
+		}
+		cout << sum << endl;
+	}
+	return 0;
+}
