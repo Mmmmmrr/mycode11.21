@@ -899,3 +899,64 @@ int main()
 	}
 	return 0;
 }
+
+
+//Shopee的办公室
+#include <iostream>
+using namespace std;
+long long z[105][105];
+int main()
+{
+	int x, y, n;
+	cin >> x >> y >> n;
+	int x1, y1;
+	while (n--)
+	{
+		cin >> x1 >> y1;
+		z[x1][y1] = -1;
+	}
+	z[x][y] = 1;
+	for (int i = x; i >= 0; i--)
+	{
+		for (int j = y; j >= 0; j--)
+		{
+			if (z[i][j] == -1 || (i == x && j == y))
+			{
+				continue;
+			}
+			z[i][j] = max(z[i + 1][j], (long long)(0)) + max(z[i][j + 1], (long long)(0));
+		}
+	}
+	cout << z[0][0] << endl;
+	return 0;
+}
+
+
+//变态跳台阶
+class Solution {
+public:
+	int jumpFloorII(int number) {
+		return pow(2, number - 1);
+	}
+};
+
+
+
+//快到碗里来
+#include <iostream>
+using namespace std;
+int main()
+{
+	double n, r;
+	while (cin >> n >> r)
+	{
+		double c = 2 * r*3.14;
+		if (n > c)
+		{
+			cout << "No" << endl;
+		}
+		else
+			cout << "Yes" << endl;
+	}
+	return 0;
+}
