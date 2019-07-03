@@ -960,3 +960,51 @@ int main()
 	}
 	return 0;
 }
+
+
+//三角形
+#include <iostream>
+using namespace std;
+
+#define ADD(x,y) ((x)+(y))
+#define BIG(x,y) ((x)>(y))
+
+int main()
+{
+	double a, b, c;
+	while (cin >> a >> b >> c)
+	{
+		if (BIG(ADD(a, b), c) && BIG(ADD(a, c), b) && BIG(ADD(b, c), a))
+		{
+			cout << "Yes" << endl;
+		}
+		else
+		{
+			cout << "No" << endl;
+		}
+	}
+	return 0;
+}
+
+
+
+//不用+-*/实现两数相加
+#include <iostream>
+using namespace std;
+int Add(int num1, int num2)
+{
+	while (num2)
+	{
+		int sum = num1 ^ num2;
+		int num = (num1 & num2) << 1;
+		num1 = sum;
+		num2 = num;
+	}
+	return num1;
+}
+int main()
+{
+	int c = Add(1, 2);
+	cout << c << endl;
+	return 0;
+}
