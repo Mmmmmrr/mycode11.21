@@ -1008,3 +1008,64 @@ int main()
 	cout << c << endl;
 	return 0;
 }
+
+
+//奇数位放奇数，偶数位放偶数
+class Solution {
+public:
+	/**
+	*  奇数位上都是奇数或者偶数位上都是偶数
+	*  输入：数组arr，长度大于2
+	*  len：arr的长度
+	*  将arr调整成奇数位上都是奇数或者偶数位上都是偶数
+	*/
+	void oddInOddEvenInEven(vector<int>& arr, int len) {
+		int i = 0;
+		int j = 1;
+		while (i<len && j<len)
+		{
+			if (arr[len - 1] % 2 == 0)
+			{
+				swap(arr[len - 1], arr[i]);
+				i += 2;
+			}
+			else
+			{
+				swap(arr[len - 1], arr[j]);
+				j += 2;
+			}
+		}
+	}
+};
+
+
+//猴子分桃
+// write your code here cpp
+//每次老猴子的一个桃子是要拿出来的
+//4f(n-1)=5f(n)+1-->f(n)=(4/5)^(n-1){f(1)+1}-1
+//-->f(1)= 5^(n-1)-1   f(n)=4^(n-1)-1
+//-->最初=5^n-4   最后=4^n-4+n
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+//数学库的pow函数返回double，大的double加小整数貌似会忽略小整数
+//重新写个pow函数
+long long int pow1(int a, int b){
+	if (b == 1)
+		return a;
+	else{
+		if (b % 2 == 0)
+			return pow1(a, b / 2)*pow1(a, b / 2);
+		else
+			return pow1(a, b / 2)*pow1(a, b / 2)*a;
+	}
+}
+int main(){
+	int n;
+	cin >> n;
+	while (n){
+		printf("%ld %ld\n", pow1(5, n) - 4, pow1(4, n) + n - 4);
+		cin >> n;
+	}
+	return 0;
+}
