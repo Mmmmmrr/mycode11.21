@@ -1069,3 +1069,72 @@ int main(){
 	}
 	return 0;
 }
+
+
+
+
+//求正数数组的最小不可组成和
+class Solution {
+public:
+	/**
+	*	正数数组中的最小不可组成和
+	*	输入：正数数组arr
+	*	返回：正数数组中的最小不可组成和
+	*/
+	int getFirstUnFormedNum(vector<int> arr, int len) {
+		if (len == 1)
+			return arr[0] + 1;
+		int min = arr[0];
+		int max = arr[0];
+		int i = 0;
+		int j = 0;
+		for (i = 1; i<len; i++)
+		{
+			max += arr[i];
+			min = (min<arr[i]) ? min : arr[i];
+		}
+
+		int res[100001] = { 0 };
+		res[0] = 1;
+		i = 0;
+		while (i<len)
+		{
+			for (j = max; j >= 0; j--)
+			if (res[j])
+				res[j + arr[i]] = 1;
+			i++;
+		}
+		i = min;
+		while (i <= max&&res[i]) i++;
+		return i;
+	}
+};
+
+
+
+//有假币
+// write your code here cpp
+#include <stdio.h>
+int main()
+{
+	int n;
+	while (scanf("%d", &n) && n){
+		if (n == 1)
+			printf("0\n");
+		else if (n == 2 || n == 3){
+			printf("%d\n", 1);
+		}
+		else{
+			int j = 1;
+			while (n>3){
+				if (n % 3 == 0)
+					n /= 3;
+				else
+					n = n / 3 + 1;
+				j++;
+			}
+			printf("%d\n", j);
+		}
+	}
+	return 0;
+}
