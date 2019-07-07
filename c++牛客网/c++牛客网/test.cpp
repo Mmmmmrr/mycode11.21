@@ -1138,3 +1138,78 @@ int main()
 	}
 	return 0;
 }
+
+
+
+//最难问题
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	char a[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+	string s;
+	while (getline(cin, s))
+	{
+		int j;
+		for (int i = 0; i<s.size(); i++)
+		{
+			if (s[i] == ' ')
+			{
+				cout << ' ';
+			}
+			else
+			{
+				for (j = 0; j<26; j++)
+				{
+					if (s[i] == a[j])
+					{
+						if (j >= 5)
+						{
+							cout << a[j - 5];
+						}
+						else
+						{
+							cout << a[j + 21];
+						}
+					}
+				}
+			}
+		}
+		cout << endl;
+	}
+	return 0;
+}
+
+
+
+//因子个数
+// write your code here cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		int count = 0;
+		for (int i = 2; i <= sqrt(n); i++)
+		{
+			if (n % i == 0)
+			{
+				count++;
+			}
+			while (n % i == 0)
+			{
+				n = n / i;
+			}
+		}
+		if (n != 1)
+		{
+			count++;
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
