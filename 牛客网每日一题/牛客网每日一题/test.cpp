@@ -84,3 +84,65 @@ int main()
 	}
 	return 0;
 }
+
+
+
+
+//淘宝网店
+#include <iostream>
+using namespace std;
+bool Isleap(int year)
+{
+	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+		return true;
+	else
+		return false;
+}
+int main()
+{
+	int day[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int year1, month1, day1;
+	int year2, month2, day2;
+	while (cin >> year1 >> month1 >> day1 >> year2 >> month2 >> day2)
+	{
+		int sum = 0;
+		for (int i = year1; i <= year2 - 1; i++)
+		{
+			if (Isleap(i))
+				sum += 580;
+			else
+				sum += 579;
+		}
+		for (int i = 0; i <= month1 - 1; i++)
+		{
+			int tmp = 0;
+			if (i == month1 - 1)
+			{
+				tmp = day1 - 1;
+			}
+			else
+				tmp = day[i];
+			if (i != 1 && i != 2 && i != 4 && i != 6 && i != 10)
+				sum -= tmp * 2;
+			else
+				sum -= tmp;
+		}
+		for (int i = 0; i <= month2 - 1; i++)
+		{
+			int tmp = 0;
+			if (i == month2 - 1)
+			{
+				tmp = day2;
+			}
+			else
+				tmp = day[i];
+			if (i != 1 && i != 2 && i != 4 && i != 6 && i != 10)
+				sum += tmp * 2;
+			else
+				sum += tmp;
+		}
+		cout << sum << endl;
+	}
+	return 0;
+
+}
