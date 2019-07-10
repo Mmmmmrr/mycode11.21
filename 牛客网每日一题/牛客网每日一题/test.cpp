@@ -146,3 +146,60 @@ int main()
 	return 0;
 
 }
+
+
+//客似云来
+#include <iostream>
+using namespace std;
+int main()
+{
+	long long a[80] = { 1, 1 };
+	for (int i = 2; i < 80; i++)
+	{
+		a[i] = a[i - 1] + a[i - 2];
+	}
+	int n = 0;
+	int m = 0;
+	while (cin >> n >> m)
+	{
+		long long ret = 0;
+		for (int i = n; i <= m; i++)
+		{
+			ret += a[i - 1];
+		}
+		cout << ret << endl;
+	}
+	return 0;
+}
+
+
+
+//剪花布条
+// write your code here cpp
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string s, t;
+	while (cin >> s >> t)
+	{
+		int count = 0;
+		int j;
+		for (int i = 0; i < s.size() - t.size() + 1;)
+		{
+			string m;
+			for (j = i; j < t.length() + i; j++)
+				m += s[j];
+			if (m == t)
+			{
+				count++;
+				i = j;
+			}
+			else
+				i++;
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
