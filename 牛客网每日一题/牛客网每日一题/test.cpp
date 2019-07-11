@@ -203,3 +203,61 @@ int main()
 	}
 	return 0;
 }
+
+
+
+//收件人列表
+// write your code here cpp
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		cin.get();
+		string str;
+		for (int i = 0; i < n; i++)
+		{
+			getline(cin, str);
+			if (i != n - 1)
+			{
+				if (str.find(',') != -1 || str.find(' ') != -1)
+					cout << '"' << str << '"' << "," << " ";
+				else
+					cout << str << "," << " ";
+			}
+			else
+			{
+				if (str.find(',') != -1 || str.find(' ') != -1)
+					cout << '"' << str << '"' << endl;
+				else
+					cout << str << endl;
+			}
+		}
+	}
+	return 0;
+}
+
+
+//养兔子
+#include<iostream>
+using namespace std;
+int main()
+{
+	long long int f[100];
+	f[0] = 0;
+	f[1] = 1;
+	f[2] = 2;
+	int n;
+	while (cin >> n && n != 0)
+	{
+		for (int i = 3; i <= n; i++)
+		{
+			f[i] = f[i - 1] + f[i - 2];
+		}
+		cout << f[n] << endl;
+	}
+	return 0;
+}
