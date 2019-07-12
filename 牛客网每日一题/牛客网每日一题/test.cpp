@@ -261,3 +261,81 @@ int main()
 	}
 	return 0;
 }
+
+
+//年会抽奖
+// write your code here cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		double a[21] = { 0, 0, 1 };
+		long long int ret[21] = { 0, 1, 2 };
+		for (int i = 3; i < 21; i++)
+		{
+			a[i] = (i - 1)*(a[i - 2] + a[i - 1]);
+			ret[i] = i*ret[i - 1];
+		}
+		printf("%.2f%c\n", 1.0*a[n] / ret[n] * 100, '%');
+	}
+	return 0;
+}
+
+
+
+//抄送列表
+// write your code here cpp
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string name;
+	string s;
+	while (getline(cin, name))
+	{
+		getline(cin, s);
+		bool flag = false;
+		for (int i = 0; i < name.size(); i++)
+		{
+			string t;
+			if (name[i] == '"')
+			{
+				i++;
+				while (i <name.size() && name[i] != '"')
+				{
+					t += name[i];
+					i++;
+				}
+				if (t == s)
+				{
+					flag = true;
+					break;
+				}
+			}
+			else if (name[i] != ',')
+			{
+				while (i < name.size() && name[i] != ',')
+				{
+					t += name[i];
+					i++;
+				}
+				if (t == s)
+				{
+					flag = true;
+					break;
+				}
+			}
+		}
+		if (flag == true)
+			cout << "Ignore" << endl;
+		else
+			cout << "Important!" << endl;
+	}
+
+	return 0;
+}
