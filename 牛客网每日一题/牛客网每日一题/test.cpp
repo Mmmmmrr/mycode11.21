@@ -412,3 +412,51 @@ int main()
 	printf(" = "); print(num, den); printf("\n");
 	return 0;
 }
+
+
+//Pro-Post
+#include<stdio.h>
+#include<string.h>
+
+char s1[27], s2[27];
+int m, len;
+
+int C(int a, int b)
+{
+	long long int ans = 1;
+	for (int i = a; i >= a - b + 1; i--)
+		ans *= i;
+	for (int i = b; i >= 1; i--)
+		ans /= i;
+	return (int)ans;
+}
+
+int f(int m, int l, char *s1, char* s2)
+{
+	if (l == 0)
+		return 1;
+	int now = 0, count = 0, ans = 1;
+	while (now<l)
+	{
+		for (int i = now; i<l; i++)
+		if (s2[i] == s1[now])
+		{
+			count++;
+			ans *= f(m, i - now, s1 + now + 1, s2 + now);
+			now = i + 1;
+			break;
+		}
+	}
+	return ans*C(m, count);
+}
+
+int main()
+{
+	while (scanf("%d", &m) && m)
+	{
+		scanf(" %s %s\n", s1, s2);
+		len = strlen(s1);
+		printf("%d\n", f(m, len - 1, s1 + 1, s2));
+	}
+	return 0;
+}
