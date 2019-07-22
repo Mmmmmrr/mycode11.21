@@ -165,3 +165,103 @@ int main()
 
 
 
+//合唱团（动态规划）
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n){
+		vector<int> a(n);
+		for (int i = 0; i < n; i++){
+			cin >> a[i];
+		}
+		int k, d;
+		cin >> k >> d;
+		vector<vector<long long>> dp_max(n, vector<long long>(k + 1, 0));
+		vector<vector<long long>> dp_min(n, vector<long long>(k + 1, 0));
+		for (int i = 0; i < n; i++){
+			dp_max[i][1] = a[i];
+			dp_min[i][1] = a[i];
+		}
+		for (int i = 0; i < n; i++){
+			for (int j = 2; j <= k; j++){
+				for (int m = max(0, i - d); m <= i - 1; m++){
+					dp_max[i][j] = max(dp_max[i][j], max(dp_max[m][j - 1] * a[i], dp_min[m][j - 1] * a[i]));
+					dp_min[i][j] = min(dp_min[i][j], min(dp_min[m][j - 1] * a[i], dp_max[m][j - 1] * a[i]));
+				}
+			}
+		}
+		long long max_value = dp_max[k - 1][k];
+		for (int i = k; i < n; i++){
+			max_value = max(max_value, dp_max[i][k]);
+		}
+		cout << max_value << endl;
+	}
+	return 0;
+}
+
+
+//顺时针打印矩阵
+class Printer {
+public:
+	vector<int> clockwisePrint(vector<vector<int> > mat, int n, int m) {
+		// write code here
+		vector<int> v;
+		int x1 = 0;
+		int x2 = n - 1;
+		int y1 = 0;
+		int y2 = m - 1;
+		while (x1 <= x2 && y1 <= y2)
+		{
+
+			//左到右
+			for (int i = y1; i <= y2; i++)
+			{
+				v.push_back(mat[x1][i]);
+			}
+			//上到下
+			for (int j = x1 + 1; j <= x2; j++)
+			{
+				v.push_back(mat[j][y2]);
+			}
+			//右到左
+			for (int i = y2 - 1; x1 < x2 && i >y1; i--)
+			{
+				v.push_back(mat[x2][i]);
+			}
+			//下到上
+			for (int j = x2; y1 < y2 && j>x1; j--)
+			{
+				v.push_back(mat[j][y1]);
+			}
+			x1++;
+			x2--;
+			y1++;
+			y2--;
+		}
+		return v;
+	}
+};
+
+
+
+//左右值最大差
+class MaxGap {
+public:
+	int findMaxGap(vector<int> A, int n) {
+		// write code here
+		int max = A[0], min;
+		for (int i = 0; i < n; i++)
+		{
+			if (max < A[i])
+			{
+				max = A[i];
+			}
+			min = A[0] > A[n - 1] ? A[n - 1] : A[0];
+		}
+		return max - min;
+	}
+};
