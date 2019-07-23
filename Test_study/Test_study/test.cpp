@@ -265,3 +265,73 @@ public:
 		return max - min;
 	}
 };
+
+
+//mkdir
+// write your code here cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<string> s(n);
+		vector<bool> flag(n, true);
+		for (int i = 0; i<n; i++)
+		{
+			cin >> s[i];
+		}
+		sort(s.begin(), s.end());
+		for (int i = 0; i < s.size() - 1; i++)
+		{
+			if (s[i] == s[i + 1])
+				flag[i] = false;
+			else if (s[i].size() < s[i + 1].size() && s[i] == s[i + 1].substr(0, s[i].size()) && s[i + 1][s[i].size()] == '/')
+				flag[i] = false;
+		}
+		for (int i = 0; i <s.size(); i++)
+		{
+			if (flag[i])
+			{
+				cout << "mkdir -p " << s[i] << endl;
+			}
+		}
+		cout << endl;
+	}
+	return 0;
+}
+
+
+//数据库连接池
+#include <iostream>
+#include <string>
+#include <set>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		set<string> s;
+		string id, con;
+		int maxsize = 0;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> id >> con;
+			if (con == "connect")
+				s.insert(id);
+			else if (con == "disconnect")
+				s.erase(id);
+			int size = s.size();
+			maxsize = max(size, maxsize);
+		}
+		cout << maxsize << endl;
+	}
+
+	return 0;
+}
