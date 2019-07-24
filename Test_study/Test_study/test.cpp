@@ -335,3 +335,80 @@ int main()
 
 	return 0;
 }
+
+
+
+//蘑菇阵
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+	int n, m, k;
+	while (cin >> n >> m >> k)
+	{
+		vector<vector<int>> v((n + 1), vector<int>(m + 1));
+		vector<vector<double>> dp((n + 1), vector<double>(m + 1));
+		int x, y;
+		for (int i = 0; i < k; i++){
+			cin >> x >> y;
+			v[x][y] = 1;
+		}
+		dp[1][1] = 1.0;      //起点概率为1
+		for (int i = 1; i <= n; i++){
+			for (int j = 1; j <= m; j++){
+				if (!(i == 1 && j == 1)){      //跳过起点
+					dp[i][j] = dp[i - 1][j] * (j == m ? 1 : 0.5) + dp[i][j - 1] * (i == n ? 1 : 0.5);   //边界的时候，概率为1
+					if (v[i][j] == 1) dp[i][j] = 0;        //如果该点有蘑菇，概率置为0
+				}
+			}
+		}
+		printf("%.2lf\n", dp[n][m]);
+	}
+}
+
+
+//红与黑
+// write your code here cpp
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+void CountCard(vector<vector<char>>& v, int x, int y, int m, int n, int& count)
+{
+	if (x < 0 || y < 0 || x >= m || y >= n || v[x][y] == '1' || v[x][y] == '#')
+		return;
+	count++;
+	v[x][y] = '1';
+	CountCard(v, x - 1, y, m, n, count);
+	CountCard(v, x, y - 1, m, n, count);
+	CountCard(v, x + 1, y, m, n, count);
+	CountCard(v, x, y + 1, m, n, count);
+
+}
+
+int main()
+{
+	int m, n;
+	while (cin >> m >> n)
+	{
+		int count = 0;
+		vector<vector<char>> v(m, vector<char>(n, 0));
+		int x, y;
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cin >> v[i][j];
+				if (v[i][j] == '@')
+				{
+					x = i;
+					y = j;
+				}
+			}
+		}
+		CountCard(v, x, y, m, n, count);
+		cout << count << endl;
+	}
+	return 0;
+}
