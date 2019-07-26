@@ -499,3 +499,136 @@ int main()
 	}
 	return 0;
 }
+
+
+//发邮件
+// write your code here cpp
+#include <iostream>
+//递归方法
+//D（n） = (n-1)*(D(n-1)+D(n-2));
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		long long a[21] = { 0, 0, 1, 2 };
+		for (int i = 3; i < 21; i++)
+		{
+			a[i] = (i - 1)*(a[i - 1] + a[i - 2]);
+		}
+		cout << a[n] << endl;;
+	}
+
+	return 0;
+}
+
+
+//最长上升子序列
+// write your code here cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<int> v(n, 0);
+		for (int i = 0; i < v.size(); i++)
+		{
+			cin >> v[i];
+		}
+		vector<int> tmp(n, 1);
+		int count = 1;
+		for (int i = 1; i < n; i++)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				if (v[i] > v[j])
+				{
+					tmp[i] = max(tmp[j] + 1, tmp[i]);
+				}
+			}
+			count = max(tmp[i], count);
+		}
+		cout << count << endl;
+	}
+	return 0;
+}
+
+
+
+//Emacs计算器
+#include <iostream>
+#include <string>
+#include <stack>
+#include <cmath>
+#include <vector>
+using namespace std;
+int atoi(string str)
+{
+	int size = str.size();
+	int res = 0;
+	for (int i = 0; i < size; i++)
+	{
+		res += (str[i] - '0')*pow(10, size - i - 1);
+	}
+	return res;
+}
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		vector<string> str;
+		for (int i = 0; i<n; i++)
+		{
+			string tmp;
+			cin >> tmp;
+			str.push_back(tmp);
+		}
+		int size = str.size();
+		stack<int> st;
+		for (int i = 0; i < size; ++i)
+		{
+			if (str[i] != "+"&&str[i] != "-"&&str[i] != "*"&&str[i] != "/")
+				st.push(atoi(str[i]));
+			if (str[i] == "+")
+			{
+				int a = st.top();
+				st.pop();
+				int b = st.top();
+				st.pop();
+				st.push(a + b);
+			}
+			if (str[i] == "-")
+			{
+				int a = st.top();
+				st.pop();
+				int b = st.top();
+				st.pop();
+				st.push(b - a);
+			}
+			if (str[i] == "*")
+			{
+				int a = st.top();
+				st.pop();
+				int b = st.top();
+				st.pop();
+				st.push(a*b);
+			}
+			if (str[i] == "/")
+			{
+				int a = st.top();
+				st.pop();
+				int b = st.top();
+				st.pop();
+				st.push(b / a);
+			}
+		}
+		int top = st.top();
+		cout << top << endl;
+	}
+	return 0;
+}
