@@ -157,14 +157,23 @@ namespace mr
 
 		void Append(const char* str)
 		{
-			if (_size == _capacity)
+			/*if (_size == _capacity)
 			{
 				Reserve(strlen(str)+1+_size);
 			}
 			strcpy(_str + _size, str);
 			_size += strlen(str);
-			_str[_size] = '\0';
+			_str[_size] = '\0';*/
+			size_t len = strlen(str);
+			if (_size + len > _capacity)
+			{
+				Reserve(_size + len);
+			}
+			strcpy(_str + _size, str);
+			_size += len;
 		}
+
+		
 
 
 
@@ -281,18 +290,18 @@ namespace mr
 		String s1("y");
 		String s2("world");
 		String copy(s1);
-	/*	cout << s1.c_str() << endl;
+	   cout << s1.c_str() << endl;
 		cout << s2.c_str() << endl;
 		cout << copy.c_str() << endl;
 		cout << (s1 > s2) << endl;
 		cout << (s1 == s2) << endl;
 		cout << (s1 < s2) << endl;
 		s1.PushBack('c');
-		cout << s1.c_str() << endl;*/
-	/*	s1.Append("aaaaaaaa");
-		cout << s1.c_str() << endl;*/
-		/*s1 += 'p';
-		cout << s1.c_str() << endl;*/
+		cout << s1.c_str() << endl;
+	    s1.Append("aaaaaaaa");
+		cout << s1.c_str() << endl;
+		s1 += 'p';
+		cout << s1.c_str() << endl;
 		s2.Insert(4, 'b');
 		cout << s2.c_str() << endl;
 
