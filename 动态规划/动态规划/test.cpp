@@ -88,3 +88,80 @@ public:
 	}
 };
 
+
+//连续子数组的最大值
+//状态：F[i]:前i个连续数组的最大值
+//转移方程:F[i] = max(F[i-1]+array[i],array[i])
+//初始:sum = array[0]
+//返回值：Maxsum
+#include <iostream>
+#include <algorithm>
+class Solution {
+public:
+	int FindGreatestSumOfSubArray(vector<int> array) {
+		if (array.empty())
+			return 0;
+		int sum = array[0];
+		int MaxSum = array[0];
+		for (int i = 1; i < array.size(); i++)
+		{
+			sum = (sum > 0) ? sum + array[i] : array[i];
+			MaxSum = max(sum, MaxSum);
+		}
+		return MaxSum;
+
+	}
+};
+
+//word_break
+//状态：前i个字符在字典中能找到
+//转移方程：0-j，j-i中查找
+//F[i] = dict.find(s.substr(j,i-j))
+//初始:wbreak[0] = true; 辅助状态
+//返回值:wbreak[s.size()]
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+class Solution {
+public:
+	bool wordBreak(string s, unordered_set<string> &dict) {
+		if (s.empty())
+			return false;
+		if (dict.empty())
+			return false;
+		vector<bool> wbreak(s.size() + 1, false);
+		wbreak[0] = true;
+		for (int i = 1; i <= s.size(); i++)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				if (wbreak[j] && dict.find(s.substr(j, i - j)) != dict.end())
+				{
+					wbreak[i] = true;
+					break;
+				}
+
+			}
+		}
+		return wbreak[s.size()];
+	}
+};
+
+
+//三角形求最短路径
+class Solution {
+public:
+	int minimumTotal(vector<vector<int> > &triangle) {
+
+		vector<vector<int>> min_sum(triangle);
+		int line = triangle.size();
+		for (int i = line - 2; i >= 0; i--)
+		{
+			for (int j = 0; j <= i; j++)
+			{
+				min_sum[i][j] = min(min_sum[i + 1][j], min_sum[i + 1][j + 1]) + triangle[i][j];
+			}
+		}
+		return min_sum[0][0];
+	}
+};
