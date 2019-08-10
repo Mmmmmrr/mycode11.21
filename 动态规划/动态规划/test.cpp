@@ -165,3 +165,108 @@ public:
 		return min_sum[0][0];
 	}
 };
+
+
+//¸¯ÀÃµÄéÙ×Ó
+class Solution {
+public:
+	int orangesRotting(vector<vector<int>>& grid) {
+		static int pos[4][2] = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+		queue<pair<int, int>> q;
+		if (grid.empty())
+			return 0;
+		int row = grid.size();
+		int col = grid[0].size();
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				if (grid[i][j] == 2)
+				{
+					q.push(make_pair(i, j));
+				}
+			}
+		}
+		int min_mins = 0;
+		while (!q.empty())
+		{
+			int flag = 0;
+			int sz = q.size();
+			while (sz--)
+			{
+				auto cur = q.front();
+				q.pop();
+				for (int i = 0; i < 4; i++)
+				{
+					int nx = cur.first + pos[i][0];
+					int ny = cur.second + pos[i][1];
+					if (nx >= row || nx <0 || ny >= col || ny < 0)
+						continue;
+					if (grid[nx][ny] == 1)
+					{
+						flag = 1;
+						grid[nx][ny] = 2;
+						q.push(make_pair(nx, ny));
+					}
+
+				}
+
+			}
+			if (flag)
+				++min_mins;
+		}
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j <col; j++)
+			{
+				if (grid[i][j] == 1)
+					return -1;
+			}
+		}
+		return min_mins;
+	}
+};
+
+
+//n²æÊ÷²ãÐò±éÀú
+/*
+// Definition for a Node.
+class Node {
+public:
+int val;
+vector<Node*> children;
+
+Node() {}
+
+Node(int _val, vector<Node*> _children) {
+val = _val;
+children = _children;
+}
+};
+*/
+class Solution {
+public:
+	vector<vector<int>> levelOrder(Node* root) {
+		queue<Node*> q;
+		if (root)
+			q.push(root);
+		vector<vector<int>> TreeVec;
+		while (!q.empty())
+		{
+			vector<int> NewVec;
+			int sz = q.size();
+			while (sz--)
+			{
+				Node* curNode = q.front();
+				q.pop();
+				NewVec.push_back(curNode->val);
+				for (auto& child : curNode->children)
+				{
+					q.push(child);
+				}
+			}
+			TreeVec.push_back(NewVec);
+		}
+		return TreeVec;
+	}
+};
