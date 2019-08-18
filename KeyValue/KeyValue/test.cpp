@@ -106,3 +106,111 @@ void TestMap()
 	else
 		cout << "apple被吃了" << endl;
 }
+
+
+
+#include <map>
+#include <string>
+void TestMultimap1()
+{
+	multimap<string, string> m; m.insert(make_pair("李逵", "黑旋风"));
+	m.insert(make_pair("林冲", "豹子头"));
+	m.insert(make_pair("鲁达", "花和尚"));
+	// 尝试插入key相同的元素
+		m.insert(make_pair("李逵", "铁牛"));
+	cout << m.size() << endl;
+	for (auto& e : m)
+		cout << "<" << e.first << "," << e.second << ">" << endl;
+	// key为李逵的元素有多少个
+	cout << m.count("李逵") << endl;
+}
+void TestMultimap2()
+{
+	multimap<int, int> m;
+	for (int i = 0; i < 10; ++i) m.insert(pair<int, int>(i, i));
+	for (auto& e : m)
+		cout << e.first << "--->" << e.second << endl;
+	cout << endl;
+	// 返回m中大于等于5的第一个元素
+	auto it = m.lower_bound(5);
+	cout << it->first << "--->" << it->second << endl;
+	// 返回m中大于5的元素
+	it = m.upper_bound(5);
+	cout << it->first << "--->" << it->second << endl;
+}
+
+#include <set>
+void TestSet()
+{
+	// 用数组array中的元素构造set
+	int array[] = { 1, 3, 5, 7, 9, 2, 4, 6, 8, 0, 1, 3, 5, 7, 9, 2, 4, 6, 8, 0 };
+	set<int> s(array, array + sizeof(array) / sizeof(array));
+	cout << s.size() << endl;
+	// 正向打印set中的元素，从打印结果中可以看出：set可去重
+	for (auto& e : s)
+		cout << e << " ";
+	cout << endl;
+		// 使用迭代器逆向打印set中的元素
+	for (auto it = s.rbegin(); it != s.rend(); ++it)
+		cout << *it << " ";
+	cout << endl;
+	// set中值为3的元素出现了几次
+	cout << s.count(3) << endl;
+}
+
+#include <vector>
+class Solution {
+public:
+	class Compare
+	{
+	public:
+		// 在set中进行排序时的比较规则
+		bool operator()(const pair<string, int>& left, const pair<string, int>& right)
+		{
+			return left.second > right.second;
+		}
+	};
+	vector<string> topKFrequent(vector<string>& words, int k)
+	{
+		// 用<单词，单词出现次数>构建键值对，然后将vector中的单词放进去，统计每个单词出现的次数
+		map<string, int> m;
+		for (size_t i = 0; i < words.size(); ++i)
+			++(m[words[i]]);
+		// 将单词按照其出现次数进行排序，出现相同次数的单词集中在一块
+		multiset<pair<string, int>, Compare> ms(m.begin(), m.end());
+		// 将相同次数的单词放在set中，然后再放到vector中
+		set<string> s;
+		size_t count = 0; // 统计相同次数单词的个数
+		size_t leftCount = k;
+		vector<string> ret;
+		for (auto& e : ms)
+		{
+			if (!s.empty())
+			{
+				// 相同次数的单词已经全部放到set中
+				if (count != e.second)
+				{
+					if (s.size() < leftCount)
+					{
+						ret.insert(ret.end(), s.begin(), s.end());
+						leftCount -= s.size();
+						s.clear();
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+			count = e.second; s.insert(e.first);
+		}
+		for (auto& e : s)
+		{
+			if (0 == leftCount)
+				break;
+			ret.push_back(e);
+			leftCount--;
+		}
+		return ret;
+	}
+};
