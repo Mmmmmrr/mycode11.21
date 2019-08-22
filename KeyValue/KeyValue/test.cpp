@@ -510,6 +510,37 @@ struct AVLTreeNode
 			pParent->_bf = 1;
 	}
 
+	//验证平衡因子是否正确
+	// 注意：此处需要验证两个内容：
+	// 1. 每个节点的平衡因子是否计算正确(通过节点的子树高度差来与当前节点的平衡因子比较)
+	// 2. 每个节点的平衡因子的绝对值是否超过1
+	int _Height(PNode pRoot)
+	{
+		if (nullptr == pRoot)
+			return 0;
+		// 计算pRoot左右子树的高度
+		int leftHeight = _Height(pRoot->_pLeft);
+		int rightHeight = _Height(pRoot->_pRight);
+		// 返回左右子树中较高的子树高度+1
+		return (leftHeight > rightHeight) ? (leftHeight + 1) : (rightHeight + 1);
+	}
+	bool _IsBalanceTree(PNode pRoot)
+	{
+		// 空树也是AVL树
+		if (nullptr == pRoot)
+			return true;
+		// 计算pRoot节点的平衡因子：即pRoot左右子树的高度差
+		int leftHeight = _Height(pRoot->_pLeft);
+		int rightHeight = _Height(pRoot->_pRight);
+		int diff = rightHeight - leftHeight;
+		// 如果计算出的平衡因子与pRoot的平衡因子不相等，或者
+		// pRoot平衡因子的绝对值超过1，则一定不是AVL树
+		if (diff != pRoot->_bf || (diff > 1 || diff < -1))
+			return false;
+		// pRoot的左和右如果都是AVL树，则该树一定是AVL树
+		return _IsBalanceTree(pRoot->_pLeft) && _IsBalanceTree(pRoot->_pRight);
+	}
+
 
 	AVLTreeNode<T>* _pLeft; // 该节点的左孩子
 	AVLTreeNode<T>* _pRight; // 该节点的右孩子
@@ -518,4 +549,47 @@ struct AVLTreeNode
 	int _bf; // 该节点的平衡因子
 };
 
+
+//红黑树
+// 节点的颜色
+enum Color{ RED, BLACK };
+// 红黑树节点的定义
+template<class ValueType>
+struct RBTreeNode
+{
+	RBTreeNode(const ValueType& data = ValueType()，Color color = RED)
+	: _pLeft(nullptr)
+	, _pRight(nullptr)
+	, _pParent(nullptr)
+	, _data(data)
+	, _color(color)
+	{}
+	RBTreeNode<ValueType>* _pLeft; // 节点的左孩子
+	RBTreeNode<ValueType>* _pRight; // 节点的右孩子
+	RBTreeNode<ValueType>* _pParent; // 节点的双亲(红黑树需要旋转，为了实现简单给出该字段)
+	ValueType _data; // 节点的值域
+	Color _color; // 节点的颜色
+};
+//红黑树结构
+template<class ValueType>
+class RBTree
+{
+	typedef RBTreeNode<ValueType> Node;
+	typedef Node* PNode;
+public:
+	RBTree()
+		: _pHead(new Node)
+	{
+		_pHead->_pParent = nullptr;
+		_pHead->_pLeft = _pHead;
+		_pHead->_pRight = _pHead;
+	}
+
+	PNode& GetRoot()
+	{
+		return _pHead->_pParent;
+	}
+private:
+	PNode _pHead;
+};
 
